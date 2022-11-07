@@ -6,10 +6,11 @@ const pathToCopies = path.join(__dirname, "files-copy");
 const pathToOriginals = path.join(__dirname, "files");
 (async function(){
     try{
+    
+    fsPromises.mkdir(pathToCopies,{recursive: true});
     const files = await fsPromises.readdir(pathToOriginals);
     const pathsToFiles = files.map(file =>path.join(pathToOriginals, file));
     console.log(pathsToFiles)
-    fsPromises.mkdir(pathToCopies,{recursive: true});
     pathsToFiles.forEach((pathy, index) => {(async function(){
         try{
             console.log(pathy, path.join(pathToCopies, files[index]))
