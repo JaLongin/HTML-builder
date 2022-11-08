@@ -9,30 +9,22 @@ const pathToDist = path.join(__dirname, 'project-dist');
     try{
         const pathToNewAssets = path.join(pathToDist, 'assets');
         const pathToAssets = path.join(__dirname, 'assets');
-        fsPromises.mkdir(pathToDist, {recursive: true});
-        fsPromises.mkdir(pathToNewAssets, {recursive: true});
+        await fsPromises.mkdir(pathToDist, {recursive: true});
+        await fsPromises.mkdir(pathToNewAssets, {recursive: true});
         const assets = await fsPromises.readdir(pathToAssets, {withFileTypes: true});
         for(let i = 0; i < assets.length; i++){
             if(assets[i].isDirectory()){
                 let localPath = path.join(pathToAssets, assets[i].name);
-                fsPromises.mkdir(path.join(pathToNewAssets, assets[i].name), {recursive: true});
+                await fsPromises.mkdir(path.join(pathToNewAssets, assets[i].name), {recursive: true});
                 console.log('donny');
                 let localFiles = await fsPromises.readdir(localPath)
                 console.log(assets[i].name, localFiles.length)
                 for(j = 0; j < localFiles.length; j++){
                     try{
-                        if (i == 0 && j == 0)
-                        console.log(path.join(localPath, localFiles[j]),
-                        path.join(pathToNewAssets, assets[i].name, localFiles[j]));
                         await fsPromises.copyFile(path.join(localPath, localFiles[j]),
                          path.join(pathToNewAssets, assets[i].name, localFiles[j]));
                     }catch(e){
-                        try{
-                            await fsPromises.copyFile(path.join(localPath, localFiles[j]),
-                         path.join(pathToNewAssets, assets[i].name, localFiles[j]));
-                        }catch{
-                            console.log('blyah')
-                        }
+
                     }
                 }
             }
