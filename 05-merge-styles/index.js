@@ -19,4 +19,3 @@ const bundle = fs.createWriteStream(path.join(__dirname, "project-dist", 'bundle
     }catch{
     }
 })();
-
