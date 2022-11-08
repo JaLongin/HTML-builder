@@ -9,10 +9,8 @@ const pathToOriginals = path.join(__dirname, "files");
     fsPromises.mkdir(pathToCopies,{recursive: true});
     const files = await fsPromises.readdir(pathToOriginals);
     const pathsToFiles = files.map(file =>path.join(pathToOriginals, file));
-    console.log(pathsToFiles)
     pathsToFiles.forEach((pathy, index) => {(async function(){
         try{
-            console.log(pathy, path.join(pathToCopies, files[index]))
             await fsPromises.copyFile(pathy, path.join(pathToCopies, files[index]));
             console.log('file was copied successfully')
         }catch{
@@ -23,4 +21,3 @@ const pathToOriginals = path.join(__dirname, "files");
 
     }
 })();
-console.log(pathToCopies);
