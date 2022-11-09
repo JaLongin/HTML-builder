@@ -67,12 +67,14 @@ const pathToDist = path.join(__dirname, 'project-dist');
         const templateStream = fs.createReadStream(path.join(__dirname, 'template.html'));
         const components = await fsPromises.readdir(path.join(__dirname, 'components'),);
         let htmlText ='';
-        templateStream.on('data', data =>{
+        await templateStream.on('data', data =>{
+            console.log('first')
             htmlText = data.toString();
         })
         for (let i = 0; i < components.length; i++){
             const stream = fs.createReadStream(path.join(__dirname,'components', components[i]));
-            stream.on('data', data =>{
+            await stream.on('data', data =>{
+                console.log('second');
                htmlText =  htmlText.replace(`{{${path.basename(components[i], '.html')}}}`, data.toString());
                if (i == components.length-1)
                indexHtml.write(htmlText);
