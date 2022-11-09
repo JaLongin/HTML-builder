@@ -13,8 +13,8 @@ rl.on('line', line => {
     }
     else
     ws.write(line + '\n');
-    rl.on('SIGINT', () => {
-        console.log('Bye, good luck!');
-        process.exit();
-    });
 })
+rl.on('SIGINT', () => {
+    console.log('Bye, good luck!');
+    process.exit();
+});
